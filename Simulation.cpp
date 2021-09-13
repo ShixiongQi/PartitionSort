@@ -109,12 +109,36 @@ std::vector<Request> Simulator::SetupComputation(int num_packet, int num_insert,
 	
 	return sequence;
 }
+
+// #include <time.h>
+
+// void get_monotonic_time(struct timespec* ts) {
+//     clock_gettime(CLOCK_MONOTONIC, ts);
+// }
+
+// long get_time_nano(struct timespec* ts) {
+//     return (long)ts->tv_sec * 1e9 + ts->tv_nsec;
+// }
+
+// double get_elapsed_time_sec(struct timespec* before, struct timespec* after) {
+//     double deltat_s  = after->tv_sec - before->tv_sec;
+//     double deltat_ns = after->tv_nsec - before->tv_nsec;
+//     return deltat_s + deltat_ns*1e-9;
+// }
+
+// long get_elapsed_time_nano(struct timespec* before, struct timespec* after) {
+//     return get_time_nano(after) - get_time_nano(before);
+// }
+
 std::vector<int> Simulator::PerformOnlyPacketClassification(PacketClassifier& classifier, std::map<std::string, std::string>& summary) const {
 
 
 	std::chrono::time_point<std::chrono::steady_clock> start, end;
 	std::chrono::duration<double> elapsed_seconds;
 	std::chrono::duration<double,std::milli> elapsed_milliseconds;
+
+    // struct timespec s;
+    // struct timespec e;
 
 	start = std::chrono::steady_clock::now();
 	classifier.ConstructClassifier(ruleset);
@@ -130,7 +154,10 @@ std::vector<int> Simulator::PerformOnlyPacketClassification(PacketClassifier& cl
 		results.clear();
 		start = std::chrono::steady_clock::now();
 		for (auto const &p : packets) {
+			// get_monotonic_time(&s);
 			results.push_back(classifier.ClassifyAPacket(p));
+			// get_monotonic_time(&e);
+			// printf("%lu\n", get_elapsed_time_nano(&s, &e));
 		}
 		end = std::chrono::steady_clock::now();
 		elapsed_seconds = end - start;

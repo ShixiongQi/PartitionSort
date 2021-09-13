@@ -13,7 +13,7 @@
 
 using namespace std;
 
-int InputReader::dim = 5;
+int InputReader::dim = 22;
 int InputReader::reps = 1;
 
 unsigned int inline InputReader::atoui(const string& in) {
@@ -147,7 +147,7 @@ void InputReader::ReadProtocol(std::array<unsigned int,2>& Protocol, const strin
 int InputReader::ReadFilter(vector<string>& tokens, vector<Rule>& ruleset, unsigned int cost)
 {
 	// 5 fields: sip, dip, sport, dport, proto = 0 (with@), 1, 2 : 4, 5 : 7, 8
-
+	// 6 fields: sip, dip, sport, dport, proto = 0, x1 = 0 (with@), 1, 2 : 4, 5 : 7, 8, 9
 	/*allocate a few more bytes just to be on the safe side to avoid overflow etc*/
 	Rule temp_rule(dim);
 	string key;
@@ -178,10 +178,26 @@ int InputReader::ReadFilter(vector<string>& tokens, vector<Rule>& ruleset, unsig
 		ReadPort(temp_rule.range[i++], tokens[index_token], tokens[index_token + 2]);
 		index_token += 3;
 		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
 	}
 
 	temp_rule.priority = cost;
-
+	temp_rule.Print();
 	ruleset.push_back(temp_rule);
 
 	return 0;
@@ -346,7 +362,7 @@ vector<Rule> InputReader::ReadFilterFile(const string&  filename) {
 		// MSU FORMAT
 		vector<string> split_semi = split(tokens.back(), ';');
 		reps = (atoi(split_semi.back().c_str()) + 1) / 5;
-		dim = reps * 5;
+		dim = reps * 22;
 
 		return ReadFilterFileMSU(filename);
 
@@ -358,7 +374,7 @@ vector<Rule> InputReader::ReadFilterFile(const string&  filename) {
 			reps = tokens.size() / 9;
 		}
 		
-	    dim = reps * 5;
+	    dim = reps * 22;
 		return ReadFilterFileClassBench(filename);
 	} else {
 		cout << "ERROR: unknown input format please use either MSU format or ClassBench format" << endl;

@@ -28,7 +28,7 @@ typedef std::vector<Point> Packet;
 struct Rule
 {
 	//Rule(){};
-	Rule(int dim = 5) : dim(dim), range(dim, { { 0, 0 } }), prefix_length(dim, 0){ markedDelete = 0; }
+	Rule(int dim = 22) : dim(dim), range(dim, { { 0, 0 } }), prefix_length(dim, 0){ markedDelete = 0; }
  
 	int dim;
 	int	priority;
