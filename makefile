@@ -6,8 +6,9 @@ MITPATH = PartitionSort/
 TRACEPATH = ClassBenchTraceGenerator/
 TREEPATH = Trees/
 UTILPATH = Utilities/
+LLPATH = LinearList/
 
-VPATH = $(OVSPATH) $(MITPATH) $(TRACEPATH) $(IOPATH) $(UTILPATH) $(TREEPATH) $(SPPATH) 
+VPATH = $(OVSPATH) $(MITPATH) $(TRACEPATH) $(IOPATH) $(UTILPATH) $(TREEPATH) $(SPPATH) $(LLPATH)
 
 CXX = g++
 CXXFLAGS = -g -std=c++14  -fpermissive -O3 $(INCLUDE)
@@ -22,7 +23,7 @@ main: main.o Simulation.o InputReader.o OutputWriter.o trace_tools.o  SortableRu
 libmycls.so: interface.cpp cls_core.cpp Simulation.o InputReader.o OutputWriter.o trace_tools.o  SortableRulesetPartitioner.o misc.o OptimizedMITree.o PartitionSort.o red_black_tree.o stack.o cmap.o TupleSpaceSearch.o  HyperCuts.o HyperSplit.o  TreeUtils.o IntervalUtilities.o  MapExtensions.o Tcam.o
 	$(CXX) $(CXXFLAGS) -fPIC -shared -o libmycls.so *.o cls_core.cpp interface.cpp
 
-main.o: main.cpp ElementaryClasses.h SortableRulesetPartitioner.h InputReader.h Simulation.h BruteForce.h cmap.h TupleSpaceSearch.h trace_tools.h PartitionSort.h IntervalUtilities.h hash.h OptimizedMITree.h
+main.o: main.cpp ElementaryClasses.h SortableRulesetPartitioner.h InputReader.h Simulation.h LinearList.h BruteForce.h cmap.h TupleSpaceSearch.h trace_tools.h PartitionSort.h IntervalUtilities.h hash.h OptimizedMITree.h
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
 Simulation.o: Simulation.cpp Simulation.h ElementaryClasses.h

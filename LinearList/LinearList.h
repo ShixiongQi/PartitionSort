@@ -1,19 +1,24 @@
-#ifndef  BF_H
-#define  BF_H
+#ifndef  LL_H
+#define  LL_H
 
-#include "Simulation.h"
+#include "../Simulation.h"
 
-class BruteForce : public PacketClassifier {
+class LinearList : public PacketClassifier {
 public:
-	BruteForce(){}
+	LinearList(){}
 	void ConstructClassifier(const std::vector<Rule>& r) {
-		rules = r;
-		rules.reserve(100000);
+		// rules = r;
+		// rules.reserve(100000);
+		this->rules.reserve(rules.size());
+		for (const auto& r : rules) {
+			InsertRule(r);
+		}
 	}
 
 	Memory MemSizeBytes() const {
 		return 0;
 	}
+
  
 	int MemoryAccess() const {
 		return 0;

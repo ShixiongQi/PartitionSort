@@ -11,6 +11,7 @@
 #include "ClassBenchTraceGenerator/trace_tools.h"
 
 #include "PartitionSort/PartitionSort.h"
+#include "LinearList/LinearList.h"
 #include <stdio.h>
 
 
@@ -123,6 +124,14 @@ pair< vector<string>, vector<map<string, string>>>  RunSimulatorOnlyClassificati
 	if (tests & ClassifierTests::TestHyperCuts) {
 		HyperCuts hc;
 		RunSimulatorClassificationTrial(s, "HyperCuts", hc, data);
+	}
+	if (tests & ClassifierTests::TestBruteForce) {
+		BruteForce bf;
+		RunSimulatorClassificationTrial(s, "BruteForce", bf, data);
+	}
+	if (tests & ClassifierTests::TestLinearList) {
+		LinearList ll;
+		RunSimulatorClassificationTrial(s, "LinearList", ll, data);
 	}
 
 	if (tests & ClassifierTests::TestHyperSplit) { 
@@ -262,6 +271,12 @@ ClassifierTests ParseClassifier(const string& line) {
 		}
 		else if (classifier == "HyperCuts") {
 			tests = tests | TestHyperCuts;
+		}
+		else if (classifier == "BruteForce") {
+			tests = tests | TestBruteForce;
+		}
+		else if (classifier == "LinearList") {
+			tests = tests | TestLinearList;
 		}
 		else if (classifier == "All") {
 			tests = tests | TestAll;

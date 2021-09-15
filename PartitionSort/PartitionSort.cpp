@@ -1,9 +1,30 @@
 #include "PartitionSort.h"
+// #include <time.h>
 
+// void get_monotonic_time(struct timespec* ts) {
+//     clock_gettime(CLOCK_MONOTONIC, ts);
+// }
+
+// long get_time_nano(struct timespec* ts) {
+//     return (long)ts->tv_sec * 1e9 + ts->tv_nsec;
+// }
+
+// double get_elapsed_time_sec(struct timespec* before, struct timespec* after) {
+//     double deltat_s  = after->tv_sec - before->tv_sec;
+//     double deltat_ns = after->tv_nsec - before->tv_nsec;
+//     return deltat_s + deltat_ns*1e-9;
+// }
+
+// long get_elapsed_time_nano(struct timespec* before, struct timespec* after) {
+//     return get_time_nano(after) - get_time_nano(before);
+// }
+
+// struct timespec s;
+// struct timespec e;
 
 void PartitionSort::InsertRule(const Rule& one_rule) {
 
- 
+	// get_monotonic_time(&s);
 	for (auto mitree : mitrees)
 	{
 		bool prioritychange = false;
@@ -26,6 +47,8 @@ void PartitionSort::InsertRule(const Rule& one_rule) {
 	rules.push_back(std::make_pair(one_rule, tree_ptr));
 	mitrees.push_back(tree_ptr);  
 	InsertionSortMITrees();
+	// get_monotonic_time(&e);
+	// printf("%lu\n", get_elapsed_time_nano(&s, &e));
 }
 
 
