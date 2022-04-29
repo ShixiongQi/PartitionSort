@@ -42,7 +42,7 @@ typedef struct rb_red_blk_node {
 	//int priority; /*max_priority of all children*/
 	bool red; /* if red=0 then the node is black */
 	rb_red_blk_node* parent;
-
+	int pdr_id; // sqi009
 } rb_red_blk_node; 
 
 
@@ -105,7 +105,7 @@ FOR RB tree light weight node
 **/
 rb_red_blk_tree* RBTreeCreate();
 
-rb_red_blk_node * RBTreeInsertWithPathCompression(rb_red_blk_tree* tree, const std::vector<box>& key, unsigned int level, const std::vector<int>& fieldOrder, int priority);
+rb_red_blk_node * RBTreeInsertWithPathCompression(rb_red_blk_tree* tree, const std::vector<box>& key, unsigned int level, const std::vector<int>& fieldOrder, int priority, int pdr_id);
 void RBTreeDeleteWithPathCompression(rb_red_blk_tree*& tree, const std::vector<box>& key, int level, const std::vector<int>& fieldOrder, int priority, bool& JustDeletedTree);
 std::vector<std::pair<rb_red_blk_tree*, rb_red_blk_node *>> RBFindNodeSequence(rb_red_blk_tree* tree, const std::vector<box>& key, int level, const std::vector<int>& fieldOrder);
 

@@ -289,7 +289,7 @@ bool TreeInsertWithPathCompressionHelp(rb_red_blk_tree* tree, rb_red_blk_node* z
 			
 			}
 			else {*/
-			RBTreeInsertWithPathCompression(x->rb_tree_next_level, b, level + 1, fieldOrder, priority);
+			RBTreeInsertWithPathCompression(x->rb_tree_next_level, b, level + 1, fieldOrder, priority, -1);
 			//}
 		
 		}
@@ -317,7 +317,7 @@ bool TreeInsertWithPathCompressionHelp(rb_red_blk_tree* tree, rb_red_blk_node* z
   //need to create a tree first then followed by insertion
   //we use path-compression here since this tree contains a single rule
   z->rb_tree_next_level = RBTreeCreate(); 
-  RBTreeInsertWithPathCompression(z->rb_tree_next_level, b, level  +1, fieldOrder, priority);
+  RBTreeInsertWithPathCompression(z->rb_tree_next_level, b, level  +1, fieldOrder, priority, -1);
 
   
 
@@ -349,7 +349,7 @@ bool TreeInsertWithPathCompressionHelp(rb_red_blk_tree* tree, rb_red_blk_node* z
 /*            info pointers and inserts it into the tree. */
 /***********************************************************************/
 
-rb_red_blk_node * RBTreeInsertWithPathCompression(rb_red_blk_tree* tree, const std::vector<box>& key, unsigned int level, const std::vector<int>& fieldOrder,int priority) {
+rb_red_blk_node * RBTreeInsertWithPathCompression(rb_red_blk_tree* tree, const std::vector<box>& key, unsigned int level, const std::vector<int>& fieldOrder,int priority, int pdr_id) {
 
 	
   rb_red_blk_node * y;
@@ -461,8 +461,8 @@ rb_red_blk_node * RBTreeInsertWithPathCompression(rb_red_blk_tree* tree, const s
 
 			  z1->rb_tree_next_level = RBTreeCreate(); 
 			  z2->rb_tree_next_level = RBTreeCreate(); 
-			  RBTreeInsertWithPathCompression(z1->rb_tree_next_level, PrependChainbox(temp_chain_boxes, level), level + run + 1, naturalFieldOrder, xpriority);
-			  RBTreeInsertWithPathCompression(z2->rb_tree_next_level, key, level + run + 1, fieldOrder, priority);
+			  RBTreeInsertWithPathCompression(z1->rb_tree_next_level, PrependChainbox(temp_chain_boxes, level), level + run + 1, naturalFieldOrder, xpriority, pdr_id);
+			  RBTreeInsertWithPathCompression(z2->rb_tree_next_level, key, level + run + 1, fieldOrder, priority, pdr_id);
 
 		  }
 	  } else { 
@@ -481,8 +481,8 @@ rb_red_blk_node * RBTreeInsertWithPathCompression(rb_red_blk_tree* tree, const s
 		  z1->rb_tree_next_level = RBTreeCreate(); 
 		  z2->rb_tree_next_level = RBTreeCreate();
 
-		  RBTreeInsertWithPathCompression(z1->rb_tree_next_level, PrependChainbox(temp_chain_boxes, level), level + run + 1, naturalFieldOrder, xpriority);
-		  RBTreeInsertWithPathCompression(z2->rb_tree_next_level, key, level + run + 1, fieldOrder, priority);
+		  RBTreeInsertWithPathCompression(z1->rb_tree_next_level, PrependChainbox(temp_chain_boxes, level), level + run + 1, naturalFieldOrder, xpriority, pdr_id);
+		  RBTreeInsertWithPathCompression(z2->rb_tree_next_level, key, level + run + 1, fieldOrder, priority, pdr_id);
 
 	  }
 	  return nullptr;

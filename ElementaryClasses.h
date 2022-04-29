@@ -32,7 +32,7 @@ struct Rule
  
 	int dim;
 	int	priority;
-
+	int pdr_id; //sqi009
 	int id;
 	int tag;
 	bool markedDelete = 0;

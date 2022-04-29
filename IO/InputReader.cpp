@@ -194,6 +194,14 @@ int InputReader::ReadFilter(vector<string>& tokens, vector<Rule>& ruleset, unsig
 		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
 		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
 		ReadProtocol(temp_rule.range[i++], tokens[index_token++]);
+
+        	vector<string> split_slash = split(tokens[index_token++], '/'); // sqi009
+
+	        if (split_slash[1] != "0xFF") {
+	        	temp_rule.pdr_id = 0;
+		 } else {
+			temp_rule.pdr_id = std::stoul(split_slash[0], nullptr, 16);
+		}
 	}
 
 	temp_rule.priority = cost;

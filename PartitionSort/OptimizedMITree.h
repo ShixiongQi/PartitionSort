@@ -44,7 +44,7 @@ public:
 	void Insertion(const Rule& rule) {
 		priorityContainer.insert(rule.priority); 
 		maxPriority = std::max(maxPriority, rule.priority);
-		RBTreeInsertWithPathCompression(root, rule.range, 0, fieldOrder, rule.priority);
+		RBTreeInsertWithPathCompression(root, rule.range, 0, fieldOrder, rule.priority, rule.pdr_id); //sqi009
 		numRules++;
 		counter++;
 	}
@@ -53,7 +53,7 @@ public:
 			priorityContainer.insert(rule.priority);
 			priorityChange = rule.priority > maxPriority;
 			maxPriority = std::max(maxPriority, rule.priority);
-			RBTreeInsertWithPathCompression(root, rule.range, 0, fieldOrder, rule.priority);
+			RBTreeInsertWithPathCompression(root, rule.range, 0, fieldOrder, rule.priority, rule.pdr_id); //sqi009
 			numRules++; 
 			counter++;
    //		} 
@@ -64,7 +64,7 @@ public:
 			priorityContainer.insert(rule.priority);
 			priorityChange = rule.priority > maxPriority;
 			maxPriority = std::max(maxPriority, rule.priority);
-			RBTreeInsertWithPathCompression(root, rule.range, 0, fieldOrder, rule.priority);
+			RBTreeInsertWithPathCompression(root, rule.range, 0, fieldOrder, rule.priority, rule.pdr_id); //sqi009
 			numRules++;
 			return true;
 		} else { return false; }

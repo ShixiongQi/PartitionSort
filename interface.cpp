@@ -18,7 +18,7 @@ void createCLS () {
 
 void interface() {
     int a = mycls->doPartitionSort();
-    // cout << "Hello world" << endl;
+    cout << "Lookup Result: " << a << endl;
 }
 
 #ifdef __cplusplus
